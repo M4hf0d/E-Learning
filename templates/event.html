@@ -1,0 +1,46 @@
+{% extends "base.html"%} {% block title %} 🗓️ {{event.name}} {% endblock title%}
+{% block body %}
+<h1>{{event.name}}</h1>
+<p>{{event.description|linebreaks}}</p>
+<div>
+  <h3>Assignements</h3>
+  <div>
+
+    <lu>
+      {% for a in cass %}
+      <li><a href="{% url 'assignements_page' pk=a.id %}"> {{a.Title}}</a> ,
+        <b> Deadline: {{a.end_date |date:"d-m-Y H:i"}} </b>
+        ------------------------------------ {% if a.status == 'Ongoing' %}
+        ✅
+        {% else %}
+        ❌
+        {% endif %}
+      </li>
+      {% endfor %}
+    </lu>
+  </div>
+</div>
+<div>
+  <h3>Course Students:</h3>
+  <ul>
+    {% for p in event.participants.all %}
+
+    <li><strong> {{p.name}} </strong></li>
+    {% endfor %}
+  </ul>
+</div>
+{% if request.user.is_authenticated %}
+{% if enrolled %}
+<button style="cursor: not-allowed;" class="btn btn--secondary ">Enrolled ✅</button>
+{% else %}
+<form method="post" action="{% url 'enroll_course' course_id=event.id %}">
+  {% csrf_token %}
+  <button type="submit" class="btn btn--primary">Enroll</button>
+</form>
+{% endif %}
+{% else %}
+<a class="btn btn--primary" href="{% url 'login' %}">Login to Submit an assignment</a>
+{% endif %}
+
+
+{%endblock body %}

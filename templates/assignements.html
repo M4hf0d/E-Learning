@@ -1,0 +1,105 @@
+{% extends "base.html"%} {% block title %} 📑 Assignements {% endblock title %} {% block body %}
+
+<style>
+    .tcontainer {
+        margin-bottom: 1rem;
+    }
+
+    .responsive-table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .table-header {
+        display: flex;
+        background-color: #f8f9fa;
+        font-weight: bold;
+    }
+
+    .table-row {
+        display: flex;
+
+        border-bottom: 1px solid #ddd;
+    }
+
+    .col {
+        display: table-cell;
+        padding: 0.75rem;
+        text-align: left;
+        vertical-align: middle;
+    }
+
+    .col-1 {
+        width: 20%;
+    }
+
+    .col-2 {
+        width: 30%;
+    }
+
+    .col-3 {
+        width: 25%;
+    }
+
+    .col-4 {
+        width: 25%;
+    }
+
+    div.link a:link,
+    div.link a:visited {
+        background-color: white;
+        color: black;
+        border: none;
+        /* Remove the border */
+        border-radius: 10px;
+        /* Add round corners */
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+    div.link a:hover,
+    div.link a:active {
+        background-color: rgb(188, 188, 188);
+        color: white;
+    }
+</style>
+
+<div>
+    <h2> Assignements for the Course {{assignement.course.name}}:</h2>
+    <div>
+        <h3>{{assignement.Title}}</h3>
+        <p>{{assignement.Details}}</p>
+        <a class="btn btn--primary" href="{{ assignement.Documents.url }}">Download Assignement Documents</a></h4>
+    </div>
+    {% if teacher %}
+    <h3>All submissions: </h3>
+    <div class="tcontainer">
+        <ul class="responsive-table">
+            <li class="table-header">
+                <div class="col col-1">Students Name</div>
+                <div class="col col-2">Students File</div>
+                <div class="col col-4"> Time submission</div>
+            </li>
+            {% for sub in assignement.subAssignement.all %}
+
+            <li class="table-row">
+                <div class="col col-1" data-label="Job Id"> {{sub.participant.name}}</div>
+                <div class="col col-2" data-label="Customer Name">
+                    <div class="link"> <a href="{{ sub.Documents.url }}">Download
+                        </a></div>
+                </div>
+                <div class="col col-4" data-label="Payment Status">{{sub.created |date:"m-d-Y H:i"}}</div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% else %}
+    <a href="{% url 'Submit_assignments' pk=assignement.id %}" class="btn btn--primary"> Submit Assignement </a>
+    {% endif %}
+
+</div>
+{% endblock body %}

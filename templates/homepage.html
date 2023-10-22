@@ -1,0 +1,88 @@
+{% extends "base.html"%}
+{% block title %} 🏠 Home {% endblock title %}
+{% block body %}
+
+<div class="section" id="home__hero">
+    <div id="hero__content">
+        <h3 id="intro--headline">Welcome to [University Name]</h3>
+
+        <p id="intro--subheadline">La formation qu'il vous faut en une minute
+    </div>
+</div>
+
+
+<div class="container--events">
+    <div>
+        <h3><b> Courses</b></h3>
+    </div>
+
+
+    <div class="events--lists section">
+        {% for event in events %}
+        <a href="{% url 'course_page' pk=event.id %}">
+
+            <div class="event__wrapper">
+                <h5 class="event__preview--title">{{event.name}}</h5>
+
+                <div class="event__preview__details">
+                    <div class="dot__wrapper">
+                        {% if event.course_status == 'Ongoing' %}
+                        <div class="dot dot--green"></div>
+                        {% else %}
+                        <div class="dot dot--red"></div>
+                        {% endif %}
+
+                        <p>{{event.course_status}}</p>
+                    </div>
+                    <p>{{event.participants.all.count}} Participants</p>
+                </div>
+
+                <div class="">
+                    <p>{{event.description|linebreaks}}</p>
+                </div>
+                <div class="event__preview__details__bottom">
+                    <div>
+                        <p>Start Date:</p>
+                        <p class="event--date">{{event.start_date|date:"d.m.Y"}}</p>
+                    </div>
+
+                    <div>
+                        <p>End Date:</p>
+                        <p class="event--date">{{event.end_date|date:"d-m-Y"}}</p>
+                    </div>
+                </div>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+
+</div>
+
+
+
+<section>
+    <h3><b>Users</b> : {{count}}</h3>
+
+    <div class="users--lists section">
+        {% for user in users %}
+        <div class="wrapper--user">
+            <div class="avatar__border">
+                <img class="user--avatar--sm" src="{{user.avatar.url}}" />
+            </div>
+
+            <p>{{user.name}}</p>
+
+        </div>
+        </a>
+        {% endfor %}
+    </div>
+    <div class="section paginator--wrapper">
+        {% for page in pages %}
+        <a class="btn btn--primary" href="?page={{page}}">{{page}}</a>
+        {% endfor %}
+    </div>
+</section>
+
+
+
+{% endblock body %}

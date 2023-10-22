@@ -1,0 +1,41 @@
+{% extends "base.html"%} {% block title %} 👤 Account {% endblock title %}
+{% block body %}
+<h1> Hello {{user.name}} ! </h1>
+
+
+
+<div class="section">
+    <img class="user--avatar--lg" src="{{user.avatar.url}}" />
+</div>
+
+
+
+<div class="section">
+    <h3>My Courses</h3>
+    <ul>
+        {% for event in user.events.all %}
+        <li> <a href="{% url 'course_page' pk=event.id %}">{{event.name}}</a></li>
+
+        {% empty %}
+        <p>You haven't registed for any events</p>
+        {% endfor %}
+    </ul>
+</div>
+
+<div class="section">
+    <h3>My Submissions</h3>
+    <ul>
+        {% for sub in user.submission.all %}
+        <li>
+            <a href="{% url 'course_page' pk=sub.Course.id %}">{{sub.Course.name}}
+                .............................................</a>
+            <a href=""> {{sub.Assignement.Title}}</a>
+        </li>
+
+
+        {% empty %}
+        <p>You dont haven't submitted any projects yet</p>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock body %}
