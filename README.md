@@ -1,4 +1,11 @@
 # E-Learning
+A Django Web to manage school requirements, manage assignement, courses, students & Dashboard for Admins and Profile for each user .User has the ability to create an account, Login, view courses and enroll, upload assignements
+
+# What I Learned
+
+* Core Data (Entities, Attributes, Relationships)
+* User Roles
+* Images & Media Managment
 
 ![Screenshot z-11-06 182219](https://github.com/M4hf0d/E-Learning/assets/73748467/a35e944b-ad61-48c9-9bb0-cfc7734d606b)
 ![Screenshot 2023-11-06 182219](https://github.com/M4hf0d/E-Learning/assets/73748467/e1382e3d-2080-4cac-a104-4421ad7dc50d)
